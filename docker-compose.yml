@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:7.17.4
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - default
+    volumes:
+      - /elasticsearchvolume
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    user: root
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.13.0
+    ports:
+      - "5601:5601"
+    networks:
+      - default
+    environment:
+      ELASTICSERCH_UTL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+  
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:7.16.2
+    ports:
+      - "5000:5000"
+    networks:
+      - default
+    environment:
+      MONITORING_ELASTICSEARCH_HOSTS: http://elasticsearch:9200

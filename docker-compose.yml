@@ -31,7 +31,7 @@ services:
     image: docker.elastic.co/logstash/logstash:7.16.2
     ports:
       - "5000:5000"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     networks:
       - default
-    environment:
-      MONITORING_ELASTICSEARCH_HOSTS: http://elasticsearch:9200

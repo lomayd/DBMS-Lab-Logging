@@ -14,7 +14,7 @@ public class UserService {
     
     private final UserRepository userRepository;
 
-    public User joinUser(UserRequestDto.UserJoin userJoin){
+    public void joinUser(UserRequestDto.UserJoin userJoin){
         User user = User.builder()
                 .id(userJoin.getId())
                 .password(userJoin.getPassword())
@@ -25,8 +25,6 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
-        
-        return user;
     }
 
     public UserResponseDto.UserInfo getUser(String id) {
@@ -35,7 +33,7 @@ public class UserService {
         return UserResponseDto.UserInfo.of(user);
     }
 
-    public User modifyUser(String id, UserRequestDto.UserModify userModify) {
+    public void modifyUser(String id, UserRequestDto.UserModify userModify) {
         User user = userRepository.findById(id).get();
 
         user.setPassword(userModify.getPassword());
@@ -45,8 +43,6 @@ public class UserService {
         user.setAge(userModify.getAge());
 
         userRepository.save(user);
-        
-        return user;
     }
     
     public User removeUser(String id) {

@@ -10,6 +10,7 @@ services:
       - default
     volumes:
       - /elasticsearchvolume
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     environment:
       - discovery.type=single-node
       - ES_JAVA_OPTS=-Xms512m -Xmx512m

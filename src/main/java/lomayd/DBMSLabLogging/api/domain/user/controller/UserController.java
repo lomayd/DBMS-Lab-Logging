@@ -22,6 +22,8 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Void> joinUser(@RequestBody UserRequestDto.UserJoin userJoin) {
         User user = userService.joinUser(userJoin);
+        log.info("INSERT: {\"id\": \"{}\", \"password\": \"{}\", \"name\": \"{}\", \"nickname\": \"{}\", \"email\": \"{}\", \"age\": {}}",
+            user.getId(), user.getPassword(), user.getName(), user.getNickname(), user.getEmail(), user.getAge());
         log.info(null,
             append("type","INSERT"),
             append("id", user.getId()), 
@@ -36,8 +38,10 @@ public class UserController {
     @GetMapping
     public ResponseEntity<UserResponseDto.UserInfo> getUser(@RequestParam String id) {
         UserResponseDto.UserInfo userInfo = userService.getUser(id);
+        log.info("SELECT: {\"id\": \"{}\", \"password\": \"{}\", \"name\": \"{}\", \"nickname\": \"{}\", \"email\": \"{}\", \"age\": {}}",
+            userInfo.getId(), userInfo.getPassword(), userInfo.getName(), userInfo.getNickname(), userInfo.getEmail(), userInfo.getAge());
         log.info(null,
-            append("type","READ"),
+            append("type","SELECT"),
             append("id", userInfo.getId()), 
             append("password", userInfo.getPassword()),
             append("name", userInfo.getPassword()),
@@ -50,6 +54,8 @@ public class UserController {
     @PatchMapping
     public ResponseEntity<Void> modifyUser(@RequestParam String id, @RequestBody UserRequestDto.UserModify userModify) {
         User user = userService.modifyUser(id, userModify);
+        log.info("UPDATE: {\"id\": \"{}\", \"password\": \"{}\", \"name\": \"{}\", \"nickname\": \"{}\", \"email\": \"{}\", \"age\": {}}",
+            user.getId(), user.getPassword(), user.getName(), user.getNickname(), user.getEmail(), user.getAge());
         log.info(null,
             append("type","UPDATE"),
             append("id", user.getId()), 
@@ -64,6 +70,8 @@ public class UserController {
     @DeleteMapping
     public ResponseEntity<Void> removeUser(@RequestParam String id) {
         User user = userService.removeUser(id);
+        log.info("DELETE: {\"id\": \"{}\", \"password\": \"{}\", \"name\": \"{}\", \"nickname\": \"{}\", \"email\": \"{}\", \"age\": {}}",
+            user.getId(), user.getPassword(), user.getName(), user.getNickname(), user.getEmail(), user.getAge());
         log.info(null,
             append("type","DELETE"),
             append("id", user.getId()), 
